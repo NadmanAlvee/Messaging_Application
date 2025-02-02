@@ -1,9 +1,17 @@
-const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
+// library imports
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+
+// internel imports
 const { errorHandler, notFoundHandler } = require("./middlewares/common/errorHandlers");
+const loginRouter = require('./router/loginRouter');
+const usersRouter = require('./router/usersRouter');
+const inboxRouter = require('./router/inboxRouter');
+
+// configs
 dotenv.config({ path: path.join(__dirname, ".env") });
 const app = express();
 
@@ -31,6 +39,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Routing setup
+app.use('/', loginRouter);
+app.use('/users', usersRouter);
+app.use('/inbox', inboxRouter);
 
 // Error handling
 app.use(notFoundHandler); // 404
