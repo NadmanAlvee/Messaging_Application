@@ -51,7 +51,7 @@ app.use(notFoundHandler); // 404
 app.use(errorHandler); // common
 
 // Listen to port
-const port = parseInt(process.env.DEV, 10) || 3000;
+const port = parseInt(process.env.PORT, 10) || 3000;
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
 });

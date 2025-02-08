@@ -37,7 +37,7 @@ const peopleSchema = mongoose.Schema(
 	}
 );
 // step 3: make a model using mongoose.model("model Name", Schema)
-const People = mngoose.model("People", peopleSchema);
+const People = mongoose.model("People", peopleSchema);
 
 // step 4: export Model
 module.exports = People;
