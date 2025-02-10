@@ -1,6 +1,9 @@
 // external imports
 const bcrypt = require("bcrypt");
 
+// internal imports
+const User = require("../models/People");
+
 // get users page
 function getUsers(req, res, next) {
 	res.render("users");

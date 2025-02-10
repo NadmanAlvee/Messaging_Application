@@ -14,7 +14,7 @@ function uploader(
 		destination: (req, file, cb) => {
 			cb(null, upload_folder);
 		},
-		fileName: (req, file, cb) => {
+		filename: (req, file, cb) => {
 			const fileExt = path.extname(file.originalname);
 			const fileName =
 				file.originalname
