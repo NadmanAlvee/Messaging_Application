@@ -26,9 +26,7 @@ const addUserValidators = [
 			}
 		}),
 	check("mobile")
-		.isMobilePhone("bn-BD", {
-			strictMode: true,
-		})
+		.isMobilePhone("bn-BD", { strictMode: true })
 		.withMessage("Must be a valid Bangladeshi Mobile Number")
 		.trim()
 		.custom(async (value) => {
@@ -51,21 +49,38 @@ const addUserValidators = [
 const addUservalidationHandler = function (req, res, next) {
 	const errors = validationResult(req);
 	const mappedErrors = errors.mapped();
+
 	if (Object.keys(mappedErrors).length === 0) {
 		next();
 	} else {
-		// delete uploaded files
-		if (req.files.length > 0) {
-			const { filename } = req.files[0];
+		// Delete uploaded file(s) if validation fails
+		if (req.file) {
+			// Single file upload
 			unlink(
-				path.join(__dirname, `/../public/uploads/avatars/${filename}`),
+				path.join(
+					__dirname,
+					`../../public/uploads/avatars/${req.file.filename}`
+				),
 				(err) => {
-					if (err) console.log(err);
+					if (err) console.log("Error deleting file:", err);
 				}
 			);
+			console.log("file deleted");
+		} else if (req.files && req.files.length > 0) {
+			// Multiple files
+			req.files.forEach((file) => {
+				unlink(
+					path.join(__dirname, `../../public/uploads/avatars/${file.filename}`),
+					(err) => {
+						if (err) console.log("Error deleting file:", err);
+					}
+				);
+			});
+			console.log("file deleted [0]");
 		}
-		// response the errors
-		res.status(500).json({
+
+		// Send validation errors as response
+		res.status(400).json({
 			errors: mappedErrors,
 		});
 	}
