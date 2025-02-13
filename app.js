@@ -30,7 +30,7 @@ mongoose
 
 // Request parsers
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // to handle form data
 
 // Setup view engine
 app.set("view engine", "ejs");

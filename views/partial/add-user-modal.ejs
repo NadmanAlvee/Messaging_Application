@@ -56,9 +56,9 @@
         event.preventDefault();
 
         // clear error first
-        const errroPlaceholders = document.querySelectorAll("p.error");
-        for(let i = 0; i < errroPlaceholders.length; i++){
-            errroPlaceholders[i].style.display = "none";
+        const errorPlaceholders = document.querySelectorAll("p.error");
+        for(let i = 0; i < errorPlaceholders.length; i++){
+            errorPlaceholders[i].style.display = "none";
         }
         const inputErrors = document.querySelectorAll("input.error");
         if(inputErrors.length > 0){
@@ -86,10 +86,10 @@
                 form[fieldName].classList.add("error");
 
                 // set all error placehlders (p tag) textContent
-                const errroPlaceholder = document.querySelector(`.${fieldName}-error`);
-                errroPlaceholder.textContent = result.errors[fieldName].msg;
+                const errorPlaceholder = document.querySelector(`.${fieldName}-error`);
+                errorPlaceholder.textContent = result.errors[fieldName].msg;
 
-                errroPlaceholder.style.display = "block";
+                errorPlaceholder.style.display = "block";
             });
         } else {
             // success
