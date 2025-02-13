@@ -37,12 +37,13 @@ async function addUser(req, res, next) {
 				message: "User added successfully",
 			});
 		} else {
-			res.status(400).json({
-				errors: {
-					common: {
-						msg: "No file uploaded!",
-					},
-				},
+			newUser = new User({
+				...req.body,
+				password: hashedPassword,
+			});
+			const result = await newUser.save();
+			res.status(200).json({
+				message: "User added successfully",
 			});
 		}
 	} catch (err) {

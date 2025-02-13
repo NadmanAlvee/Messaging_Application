@@ -1,10 +1,10 @@
 // external imports
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const createError = require("http-errors");
 
 // internalimports
 const User = require("../models/People");
-const createError = require("http-errors");
 
 // get login page
 function getLogin(req, res, next) {
@@ -19,7 +19,7 @@ async function login(req, res, next) {
 		const user = await User.findOne({
 			$or: [{ email: req.body.username }, { mobile: req.body.username }],
 		});
-		if (user && user_id) {
+		if (user && user._id) {
 			const isValidPassword = await bcrypt.compare(
 				req.body.password,
 				user.password

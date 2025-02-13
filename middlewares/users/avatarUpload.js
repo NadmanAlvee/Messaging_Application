@@ -16,7 +16,6 @@ function avatarUpload(req, res, next) {
 				},
 			});
 		} else {
-			console.log("Uplaoded Successfully!", req.files[0]);
 			next();
 		}
 	});
