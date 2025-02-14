@@ -8,13 +8,17 @@ const {
 	doLoginValidationHandler,
 } = require("../middlewares/login/loginValidators");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
+const {
+	checkLogin,
+	redirectLoggedIn,
+} = require("../middlewares/common/checkLogin");
 
 // configs
 const router = express.Router();
 const page_title = "Login";
 
 // login page
-router.get("/", decorateHtmlResponse(page_title), getLogin);
+router.get("/", decorateHtmlResponse(page_title), redirectLoggedIn, getLogin);
 
 // process login
 router.post(
@@ -22,7 +26,11 @@ router.post(
 	decorateHtmlResponse(page_title),
 	doLoginValidators,
 	doLoginValidationHandler,
-	login
+	login,
+	(req, res, next) => {
+		console.log(req.signedCookies);
+		next();
+	}
 );
 
 // logout url
