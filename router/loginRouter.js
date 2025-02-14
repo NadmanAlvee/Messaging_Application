@@ -2,7 +2,7 @@
 const express = require("express");
 
 // external imports
-const { getLogin, login } = require("../controller/loginController");
+const { getLogin, login, logout } = require("../controller/loginController");
 const {
 	doLoginValidators,
 	doLoginValidationHandler,
@@ -24,5 +24,8 @@ router.post(
 	doLoginValidationHandler,
 	login
 );
+
+// logout url
+router.delete("/", logout);
 
 module.exports = router;
